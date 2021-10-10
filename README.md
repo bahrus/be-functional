@@ -7,8 +7,8 @@
     "click": "myScript:yawnAndStretch"
 }'>Tumble out of bed</div>
 ...
-<script nomodule=ish id=myScript>
-export function yawnAndStretch(){
+<script nomodule=ish id=my-script>
+export const yawnAndStretch = e => {
     event.target.textContent = 'Try to come to life';
 }
 </script>
