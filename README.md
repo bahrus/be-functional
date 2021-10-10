@@ -4,7 +4,7 @@
 
 ```html
 <div be-functional='{
-    "click": "myScript:yawnAndStretch"
+    "click": "my-script:yawnAndStretch"
 }'>Tumble out of bed</div>
 ...
 <script nomodule=ish id=my-script>
