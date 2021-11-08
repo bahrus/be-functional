@@ -1,6 +1,6 @@
 # be-functional
 
-## Working like it's '95 [TODO]
+## Working like it's '95
 
 ```html
 <div be-functional='{
