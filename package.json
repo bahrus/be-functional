@@ -4,11 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "serve": "node node_modules/xtal-test/serve.js",
+    "test": "node test/test-all.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bahrus/be-functional.git"
+  },
+  "dependencies": {
+    "be-decorated": "0.0.40"
   },
   "devDependencies": {
     "be-exportable": "0.0.1",

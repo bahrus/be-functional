@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div be-functional='{
+        "click": {
+            "from": "my-script",
+            "fn": "yawnAndStretch"
+        }
+    }'>Tumble out of bed</div>
+    ...
+    <script nomodule id=my-script be-exportable>
+    export const yawnAndStretch = e => {
+        e.target.textContent = 'Try to come to life';
+    }
+    </script>
+    <script type=importmap>{
+        "imports":{
+            "trans-render/": "../node_modules/trans-render/",
+            "xtal-element/": "../node_modules/xtal-element/",
+            "be-decorated/": "../node_modules/be-decorated/"
+        }
+    }</script>
+    <script type=module>
+        import '../be-functional.js';
+        import '../node_modules/be-exportable/be-exportable.js';
+    </script>
+</body>
+</html>

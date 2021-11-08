@@ -12,7 +12,7 @@
 ...
 <script nomodule id=my-script be-exportable>
 export const yawnAndStretch = e => {
-    event.target.textContent = 'Try to come to life';
+    e.target.textContent = 'Try to come to life';
 }
 </script>
 ```
