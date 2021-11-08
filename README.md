@@ -5,7 +5,7 @@
 ```html
 <div be-functional='{
     "click": {
-        "id": "my-script",
+        "from": "my-script",
         "fn": "yawnAndStretch"
     }
 }'>Tumble out of bed</div>
