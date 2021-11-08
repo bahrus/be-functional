@@ -12,7 +12,8 @@
     "url": "git+https://github.com/bahrus/be-functional.git"
   },
   "dependencies": {
-    "be-decorated": "0.0.40"
+    "be-decorated": "0.0.40",
+    "be-hive": "0.0.9"
   },
   "devDependencies": {
     "be-exportable": "0.0.1",

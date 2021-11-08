@@ -1,4 +1,5 @@
 import { define } from 'be-decorated/be-decorated.js';
+import { register } from 'be-hive/register.js';
 export class BeFunctionalController {
     intro(proxy, target, beDecorProps) {
         const attr = target.getAttribute(`is-${beDecorProps.ifWantsToBe}`);
@@ -26,8 +27,9 @@ define({
         propDefaults: {
             ifWantsToBe,
             upgrade,
-            virtualProps: [],
+            virtualProps: ['fnParams'],
             noParse: true,
+            intro: 'intro',
         },
         actions: {
             onFnParams: {
@@ -39,3 +41,4 @@ define({
         controller: BeFunctionalController
     }
 });
+register(ifWantsToBe, upgrade, tagName);

@@ -1,5 +1,6 @@
 import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
 import {BeFunctionalProps, BeFunctionalActions, BeFunctionalVirtualProps, FnParam} from './types';
+import {register} from 'be-hive/register.js';
 
 export class BeFunctionalController implements BeFunctionalActions{
     intro(proxy: Element & BeFunctionalVirtualProps, target: Element, beDecorProps: BeDecoratedProps){
@@ -37,8 +38,9 @@ define<
         propDefaults:{
             ifWantsToBe,
             upgrade,
-            virtualProps:[],
+            virtualProps:['fnParams'],
             noParse: true,
+            intro: 'intro',
         },
         actions:{
             onFnParams:{
@@ -49,4 +51,6 @@ define<
     complexPropDefaults:{
         controller: BeFunctionalController
     }
-})
+});
+
+register(ifWantsToBe, upgrade, tagName);
