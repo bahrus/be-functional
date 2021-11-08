@@ -13,8 +13,7 @@
   },
   "dependencies": {
     "be-decorated": "0.0.40",
-    "be-hive": "0.0.9",
-    "be-observant": "0.0.58"
+    "be-hive": "0.0.9"
   },
   "devDependencies": {
     "be-exportable": "0.0.2",

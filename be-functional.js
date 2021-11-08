@@ -1,6 +1,5 @@
 import { define } from 'be-decorated/be-decorated.js';
 import { register } from 'be-hive/register.js';
-import { getProxy } from 'be-observant/getProxy.js';
 export class BeFunctionalController {
     intro(proxy, target, beDecorProps) {
         const attr = target.getAttribute(`is-${beDecorProps.ifWantsToBe}`);
@@ -13,8 +12,6 @@ export class BeFunctionalController {
             const param = fnParams[key];
             proxy.addEventListener(key, async (e) => {
                 const scriptEl = rn.querySelector(`#${param.from}`);
-                const proxy = await getProxy(scriptEl, 'exportable');
-                console.log(proxy);
                 const fn = scriptEl._modExport[param.fn];
                 fn.bind(proxy)(e);
             });
