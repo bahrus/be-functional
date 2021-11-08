@@ -16,7 +16,7 @@
     "be-hive": "0.0.9"
   },
   "devDependencies": {
-    "be-exportable": "0.0.1",
+    "be-exportable": "0.0.2",
     "xtal-test": "0.0.52"
   },
   "author": "",

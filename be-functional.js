@@ -12,7 +12,7 @@ export class BeFunctionalController {
             const param = fnParams[key];
             proxy.addEventListener(key, (e) => {
                 const scriptEl = rn.querySelector(`#${param.from}`);
-                const fn = scriptEl._modExports[param.fn];
+                const fn = scriptEl._modExport[param.fn];
                 fn.bind(proxy)(e);
             });
         }

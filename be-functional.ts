@@ -14,7 +14,7 @@ export class BeFunctionalController implements BeFunctionalActions{
             const param = fnParams[key];
             proxy.addEventListener(key, (e: Event) => {
                 const scriptEl = rn.querySelector(`#${param.from}`) as HTMLScriptElement;
-                const fn = (<any>scriptEl)._modExports[param.fn]
+                const fn = (<any>scriptEl)._modExport[param.fn]
                 fn.bind(proxy)(e);
             });
         }
