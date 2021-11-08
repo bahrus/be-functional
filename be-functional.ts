@@ -1,8 +1,14 @@
 import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
-import {BeFunctionalProps, BeFunctionalActions} from './types';
+import {BeFunctionalProps, BeFunctionalActions, BeFunctionalVirtualProps} from './types';
 
 export class BeFunctionalController implements BeFunctionalActions{
-
+    intro(proxy: Element & BeFunctionalVirtualProps, target: Element, beDecorProps: BeDecoratedProps){
+        const attr = target.getAttribute(`is-${beDecorProps.ifWantsToBe}`);
+        const params = JSON.parse(attr!);
+        for(const key in params){
+            target
+        }
+    }
 }
 
 export interface BeFunctionalController extends BeFunctionalProps{
@@ -27,6 +33,6 @@ define<
         }
     },
     complexPropDefaults:{
-        controller:BeFunctionalController
+        controller: BeFunctionalController
     }
 })

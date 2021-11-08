@@ -4,7 +4,10 @@
 
 ```html
 <div be-functional='{
-    "click": "my-script:yawnAndStretch"
+    "click": {
+        "id": "my-script",
+        "fn": "yawnAndStretch"
+    }
 }'>Tumble out of bed</div>
 ...
 <script nomodule id=my-script be-exportable>
@@ -13,3 +16,4 @@ export const yawnAndStretch = e => {
 }
 </script>
 ```
+
