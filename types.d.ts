@@ -13,6 +13,6 @@ export interface BeFunctionalActions{
 }
 
 export interface FnParam{
-    from: string;
+    scriptRef: string;
     fn: string;
 }

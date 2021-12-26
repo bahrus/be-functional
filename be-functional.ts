@@ -13,7 +13,9 @@ export class BeFunctionalController implements BeFunctionalActions{
         for(const key in fnParams){
             const param = fnParams[key];
             proxy.addEventListener(key, async (e: Event) => {
-                const scriptEl = rn.querySelector(`#${param.from}`) as HTMLScriptElement;
+                const scriptEl = rn.querySelector(`#${param.scriptRef}`) as HTMLScriptElement;
+                //TODO check if data-loaded is true, if not, add event handler for "load", then bind.
+                //Do that before creating the addEventListener on the proxy.
                 const fn = (<any>scriptEl)._modExport[param.fn]
                 fn.bind(proxy)(e);
             });
