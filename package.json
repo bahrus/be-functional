@@ -12,12 +12,13 @@
     "url": "git+https://github.com/bahrus/be-functional.git"
   },
   "dependencies": {
-    "be-decorated": "0.0.40",
-    "be-hive": "0.0.9"
+    "be-decorated": "0.0.62",
+    "be-hive": "0.0.17",
+    "xtal-element": "0.0.459"
   },
   "devDependencies": {
-    "be-exportable": "0.0.2",
-    "xtal-test": "0.0.52"
+    "be-exportable": "0.0.6",
+    "xtal-test": "0.0.54"
   },
   "author": "",
   "license": "MIT",
