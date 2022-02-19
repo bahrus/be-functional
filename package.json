@@ -12,12 +12,12 @@
     "url": "git+https://github.com/bahrus/be-functional.git"
   },
   "dependencies": {
-    "be-decorated": "0.0.79",
-    "be-hive": "0.0.28",
-    "xtal-element": "0.0.472"
+    "be-decorated": "0.0.81",
+    "be-hive": "0.0.31",
+    "xtal-element": "0.0.477"
   },
   "devDependencies": {
-    "be-exportable": "0.0.10",
+    "be-exportable": "0.0.13",
     "xtal-test": "0.0.55"
   },
   "author": "anderson.bruce.b@gmail.com",
