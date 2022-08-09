@@ -1,24 +1,39 @@
 {
   "name": "be-functional",
   "version": "0.0.6",
-  "description": "",
-  "main": "index.js",
+  "description": "Work like it's '95",
+  "keywords": [
+    "web-components",
+    "web-component",
+    "custom-element",
+    "custom-elements"
+  ],
+  "main": "be-functional.js",
+  "module": "be-functional.js",
   "scripts": {
-    "serve": "node node_modules/xtal-test/serve.js",
+    "serve": "node node_modules/may-it-serve/serve.js",
     "test": "node test/test-all.js"
   },
+  "files": [
+    "*.*"
+  ],
+  "exports": {
+    ".": "./be-functional.js",
+    "./be-functional.js": "./be-functional.js"
+  },
+  "types": "types.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bahrus/be-functional.git"
   },
   "dependencies": {
-    "be-decorated": "0.0.81",
-    "be-hive": "0.0.31",
-    "xtal-element": "0.0.477"
+    "be-decorated": "0.0.128",
+    "be-hive": "0.0.50",
+    "xtal-element": "0.0.499"
   },
   "devDependencies": {
-    "be-exportable": "0.0.13",
-    "xtal-test": "0.0.55"
+    "be-exportable": "0.0.21",
+    "xtal-test": "0.0.57"
   },
   "author": "anderson.bruce.b@gmail.com",
   "license": "MIT",
