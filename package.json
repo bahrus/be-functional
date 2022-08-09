@@ -33,7 +33,7 @@
     "xtal-element": "0.0.499"
   },
   "devDependencies": {
-    "be-exportable": "0.0.21",
+    "be-exportable": "0.0.23",
     "may-it-serve": "0.0.2",
     "@skypack/package-check": "0.2.2"
   },
