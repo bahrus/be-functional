@@ -12,7 +12,8 @@
   "module": "be-functional.js",
   "scripts": {
     "serve": "node node_modules/may-it-serve/serve.js",
-    "test": "node test/test-all.js"
+    "test": "node test/test-all.js",
+    "package-check": "package-check"
   },
   "files": [
     "*.*"
@@ -33,7 +34,8 @@
   },
   "devDependencies": {
     "be-exportable": "0.0.21",
-    "may-it-serve": "0.0.2"
+    "may-it-serve": "0.0.2",
+    "@skypack/package-check": "0.2.2"
   },
   "author": "anderson.bruce.b@gmail.com",
   "license": "MIT",
