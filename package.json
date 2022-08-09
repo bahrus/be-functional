@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "be-exportable": "0.0.21",
-    "xtal-test": "0.0.57"
+    "may-it-serve": "0.0.2"
   },
   "author": "anderson.bruce.b@gmail.com",
   "license": "MIT",
