@@ -19,12 +19,11 @@ export class BeFunctionalController {
                     fun.bind(proxy)(e);
                     return;
                 }
-                const { beBeckoned } = await import('be-exportable/beBeckoned.js');
-                beBeckoned({ container: rn, id: param.scriptRef }, (exports) => {
-                    this.#exportsLookup.set(scriptRef, exports);
-                    const fun = exports[fn];
-                    fun.bind(proxy)(e);
-                });
+                const { importFromScriptRef } = await import('be-exportable/importFromScriptRef.js');
+                const exports = await importFromScriptRef(proxy, param.scriptRef);
+                this.#exportsLookup.set(scriptRef, exports);
+                const fun = exports[fn];
+                fun.bind(proxy)(e);
             });
         }
     }
