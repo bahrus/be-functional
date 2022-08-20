@@ -1,6 +1,7 @@
 import { define } from 'be-decorated/be-decorated.js';
 import { register } from 'be-hive/register.js';
 export class BeFunctionalController {
+    #exportsLookup = new Map();
     intro(proxy, target, beDecorProps) {
         const attr = target.getAttribute(`is-${beDecorProps.ifWantsToBe}`);
         const params = JSON.parse(attr);
@@ -11,11 +12,19 @@ export class BeFunctionalController {
         for (const key in fnParams) {
             const param = fnParams[key];
             proxy.addEventListener(key, async (e) => {
-                const scriptEl = rn.querySelector(`#${param.scriptRef}`);
-                //TODO check if data-loaded is true, if not, add event handler for "load", then bind.
-                //Do that before creating the addEventListener on the proxy.
-                const fn = scriptEl._modExport[param.fn];
-                fn.bind(proxy)(e);
+                const { scriptRef, fn } = param;
+                if (this.#exportsLookup.has(scriptRef)) {
+                    const exports = this.#exportsLookup.get(scriptRef);
+                    const fun = exports[fn];
+                    fun.bind(proxy)(e);
+                    return;
+                }
+                const { beBeckoned } = await import('be-exportable/beBeckoned.js');
+                beBeckoned({ container: rn, id: param.scriptRef }, (exports) => {
+                    this.#exportsLookup.set(scriptRef, exports);
+                    const fun = exports[fn];
+                    fun.bind(proxy)(e);
+                });
             });
         }
     }
