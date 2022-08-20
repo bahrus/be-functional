@@ -28,12 +28,11 @@
     "url": "git+https://github.com/bahrus/be-functional.git"
   },
   "dependencies": {
-    "be-decorated": "0.0.128",
-    "be-hive": "0.0.50",
-    "xtal-element": "0.0.499"
+    "be-decorated": "0.0.131",
+    "be-hive": "0.0.54",
+    "be-exportable": "0.0.24"
   },
   "devDependencies": {
-    "be-exportable": "0.0.23",
     "may-it-serve": "0.0.2",
     "@skypack/package-check": "0.2.2"
   },
