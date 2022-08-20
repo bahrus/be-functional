@@ -1,5 +1,12 @@
 # be-functional
 
+<a href="https://nodei.co/npm/be-functional/"><img src="https://nodei.co/npm/be-functional.png"></a>
+
+
+[![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-functional?style=for-the-badge)](https://bundlephobia.com/result?p=be-functional)
+
+<img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-functional?compression=gzip">
+
 ## Working like it's '95
 
 ```html
