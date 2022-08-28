@@ -1,6 +1,6 @@
 import { define } from 'be-decorated/be-decorated.js';
 import { register } from 'be-hive/register.js';
-export class BeFunctionalController {
+export class BeFunctionalController extends EventTarget {
     #exportsLookup = new Map();
     intro(proxy, target, beDecorProps) {
         const attr = target.getAttribute(`is-${beDecorProps.ifWantsToBe}`);
@@ -26,6 +26,7 @@ export class BeFunctionalController {
                 fun.bind(proxy)(e);
             });
         }
+        proxy.resolved = true;
     }
 }
 const tagName = 'be-functional';

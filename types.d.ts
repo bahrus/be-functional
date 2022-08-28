@@ -1,6 +1,6 @@
-import {BeDecoratedProps} from 'be-decorated/types';
+import {BeDecoratedProps, MinimalProxy} from 'be-decorated/types';
 
-export interface BeFunctionalVirtualProps{
+export interface BeFunctionalVirtualProps extends MinimalProxy{
     fnParams: {[key: string]: FnParam}
 }
 export interface BeFunctionalProps extends BeFunctionalVirtualProps{

@@ -2,7 +2,7 @@ import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
 import {BeFunctionalProps, BeFunctionalActions, BeFunctionalVirtualProps, FnParam} from './types';
 import {register} from 'be-hive/register.js';
 
-export class BeFunctionalController implements BeFunctionalActions{
+export class BeFunctionalController extends EventTarget implements BeFunctionalActions{
     #exportsLookup = new Map<string, any>();
     intro(proxy: Element & BeFunctionalVirtualProps, target: Element, beDecorProps: BeDecoratedProps){
         const attr = target.getAttribute(`is-${beDecorProps.ifWantsToBe}`);
@@ -29,6 +29,7 @@ export class BeFunctionalController implements BeFunctionalActions{
 
             });
         }
+        proxy.resolved = true;
     }
 }
 
