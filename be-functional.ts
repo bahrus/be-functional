@@ -1,15 +1,15 @@
 import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
-import {BeFunctionalProps, BeFunctionalActions, BeFunctionalVirtualProps, FnParam} from './types';
+import {Proxy, PP, Actions, VirtualProps, FnParam} from './types';
 import {register} from 'be-hive/register.js';
 
-export class BeFunctionalController extends EventTarget implements BeFunctionalActions{
+export class BeFunctionalController extends EventTarget implements Actions{
     #exportsLookup = new Map<string, any>();
-    intro(proxy: Element & BeFunctionalVirtualProps, target: Element, beDecorProps: BeDecoratedProps){
+    intro(proxy: Element & VirtualProps, target: Element, beDecorProps: BeDecoratedProps){
         const attr = target.getAttribute(`is-${beDecorProps.ifWantsToBe}`);
         const params = JSON.parse(attr!) as {[key: string]: FnParam};
         proxy.fnParams = params;
     }
-    onFnParams({fnParams, proxy}: this){
+    onFnParams({fnParams, proxy}: PP){
         const rn = proxy.getRootNode() as DocumentFragment;
         for(const key in fnParams){
             const param = fnParams[key];
@@ -33,17 +33,14 @@ export class BeFunctionalController extends EventTarget implements BeFunctionalA
     }
 }
 
-export interface BeFunctionalController extends BeFunctionalProps{
-
-}
 
 const tagName = 'be-functional';
 const ifWantsToBe = 'functional';
 const upgrade = '*';
 
 define<
-    BeFunctionalProps & BeDecoratedProps<BeFunctionalProps, BeFunctionalActions>,
-    BeFunctionalActions
+    Proxy & BeDecoratedProps<Proxy, Actions>,
+    Actions
 >({
     config:{
         tagName,

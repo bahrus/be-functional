@@ -1,15 +1,22 @@
 import {BeDecoratedProps, MinimalProxy} from 'be-decorated/types';
 
-export interface BeFunctionalVirtualProps extends MinimalProxy{
+export interface EndUserProps {
     fnParams: {[key: string]: FnParam}
 }
-export interface BeFunctionalProps extends BeFunctionalVirtualProps{
-    proxy: Element & BeFunctionalVirtualProps;
+
+export interface VirtualProps extends EndUserProps, MinimalProxy{}
+
+export type Proxy = Element & VirtualProps;
+
+export interface ProxyProps extends VirtualProps{
+    proxy: Proxy
 }
 
-export interface BeFunctionalActions{
-    intro(proxy: Element & BeFunctionalVirtualProps, target: Element, beDecorProps: BeDecoratedProps): void;
-    onFnParams(self: this): void;
+export type PP = ProxyProps;
+
+export interface Actions{
+    intro(proxy: Proxy, target: Element, beDecorProps: BeDecoratedProps): void;
+    onFnParams(pp: PP): void;
 }
 
 export interface FnParam{
