@@ -1,5 +1,7 @@
 # be-functional
 
+[![Playwright Tests](https://github.com/bahrus/be-functional/actions/workflows/CI.yml/badge.svg?branch=baseline)](https://github.com/bahrus/be-functional/actions/workflows/CI.yml)
+
 <a href="https://nodei.co/npm/be-functional/"><img src="https://nodei.co/npm/be-functional.png"></a>
 
 
