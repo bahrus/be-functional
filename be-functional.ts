@@ -1,4 +1,4 @@
-import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
+import {define, BeDecoratedProps} from 'be-decorated/DE.js';
 import {Proxy, PP, Actions, VirtualProps, FnParam} from './types';
 import {register} from 'be-hive/register.js';
 
