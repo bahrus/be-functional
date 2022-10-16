@@ -28,13 +28,13 @@
     "url": "git+https://github.com/bahrus/be-functional.git"
   },
   "dependencies": {
-    "be-decorated": "0.0.165",
-    "be-hive": "0.0.72",
-    "be-exportable": "0.0.37"
+    "be-decorated": "0.0.180",
+    "be-hive": "0.0.74",
+    "be-exportable": "0.0.41"
   },
   "devDependencies": {
-    "may-it-serve": "0.0.2",
-    "@playwright/test": "1.26.1",
+    "may-it-serve": "0.0.3",
+    "@playwright/test": "1.27.1",
     "@skypack/package-check": "0.2.2"
   },
   "author": "anderson.bruce.b@gmail.com",
