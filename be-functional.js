@@ -2,31 +2,27 @@ import { define } from 'be-decorated/DE.js';
 import { register } from 'be-hive/register.js';
 export class BeFunctionalController extends EventTarget {
     #exportsLookup = new Map();
-    intro(proxy, target, beDecorProps) {
-        const attr = target.getAttribute(`is-${beDecorProps.ifWantsToBe}`);
-        const params = JSON.parse(attr);
-        proxy.fnParams = params;
-    }
-    onFnParams({ fnParams, proxy }) {
-        const rn = proxy.getRootNode();
+    onFnParams({ fnParams, self }) {
         for (const key in fnParams) {
             const param = fnParams[key];
-            proxy.addEventListener(key, async (e) => {
+            self.addEventListener(key, async (e) => {
                 const { scriptRef, fn } = param;
                 if (this.#exportsLookup.has(scriptRef)) {
                     const exports = this.#exportsLookup.get(scriptRef);
                     const fun = exports[fn];
-                    fun.bind(proxy)(e);
+                    fun.bind(self)(e);
                     return;
                 }
                 const { importFromScriptRef } = await import('be-exportable/importFromScriptRef.js');
-                const exports = await importFromScriptRef(proxy, param.scriptRef);
+                const exports = await importFromScriptRef(self, param.scriptRef);
                 this.#exportsLookup.set(scriptRef, exports);
                 const fun = exports[fn];
-                fun.bind(proxy)(e);
+                fun.bind(self)(e);
             });
         }
-        proxy.resolved = true;
+        return {
+            resolved: true,
+        };
     }
 }
 const tagName = 'be-functional';
@@ -39,8 +35,8 @@ define({
             ifWantsToBe,
             upgrade,
             virtualProps: ['fnParams'],
-            noParse: true,
-            intro: 'intro',
+            primaryProp: 'fnParams',
+            primaryPropReq: true,
         },
         actions: {
             onFnParams: {

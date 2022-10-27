@@ -1,35 +1,32 @@
 import {define, BeDecoratedProps} from 'be-decorated/DE.js';
-import {Proxy, PP, Actions, VirtualProps, FnParam} from './types';
+import {Proxy, PP, Actions, VirtualProps, FnParam, PPP} from './types';
 import {register} from 'be-hive/register.js';
 
 export class BeFunctionalController extends EventTarget implements Actions{
     #exportsLookup = new Map<string, any>();
-    intro(proxy: Element & VirtualProps, target: Element, beDecorProps: BeDecoratedProps){
-        const attr = target.getAttribute(`is-${beDecorProps.ifWantsToBe}`);
-        const params = JSON.parse(attr!) as {[key: string]: FnParam};
-        proxy.fnParams = params;
-    }
-    onFnParams({fnParams, proxy}: PP){
-        const rn = proxy.getRootNode() as DocumentFragment;
+
+    onFnParams({fnParams, self}: PP){
         for(const key in fnParams){
             const param = fnParams[key];
-            proxy.addEventListener(key, async (e: Event) => {
+            self.addEventListener(key, async (e: Event) => {
                 const {scriptRef, fn} = param;
                 if(this.#exportsLookup.has(scriptRef)){
                     const exports = this.#exportsLookup.get(scriptRef);
                     const fun = exports[fn];
-                    fun.bind(proxy)(e);
+                    fun.bind(self)(e);
                     return;
                 }
                 const {importFromScriptRef} = await import('be-exportable/importFromScriptRef.js');
-                const exports = await importFromScriptRef<any>(proxy, param.scriptRef);
+                const exports = await importFromScriptRef<any>(self, param.scriptRef);
                 this.#exportsLookup.set(scriptRef, exports);
                 const fun = exports[fn]; 
-                fun.bind(proxy)(e);
+                fun.bind(self)(e);
 
             });
         }
-        proxy.resolved = true;
+        return{
+            resolved: true,
+        } as PPP;
     }
 }
 
@@ -48,8 +45,8 @@ define<
             ifWantsToBe,
             upgrade,
             virtualProps:['fnParams'],
-            noParse: true,
-            intro: 'intro',
+            primaryProp: 'fnParams',
+            primaryPropReq: true,
         },
         actions:{
             onFnParams:{
