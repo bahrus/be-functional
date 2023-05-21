@@ -13,10 +13,11 @@
   "scripts": {
     "serve": "node node_modules/may-it-serve/serve.js",
     "test": "playwright test",
-    "package-check": "package-check"
+    "safari": "npx playwright wk http://localhost:3030"
   },
   "files": [
-    "*.*"
+    "*.js",
+    "types.d.ts"
   ],
   "exports": {
     ".": "./be-functional.js",
@@ -28,14 +29,15 @@
     "url": "git+https://github.com/bahrus/be-functional.git"
   },
   "dependencies": {
-    "be-decorated": "0.0.222",
-    "be-hive": "0.0.79",
-    "be-exportable": "0.0.62"
+    "be-enhanced": "0.0.20",
+    "be-exportable":  "0.0.74",
+    "be-hive": "0.0.95",
+    "trans-render": "0.0.681",
+    "xtal-element": "0.0.562"
   },
   "devDependencies": {
-    "may-it-serve": "0.0.4",
-    "@playwright/test": "1.29.2",
-    "@skypack/package-check": "0.2.2"
+    "may-it-serve": "0.0.5",
+    "@playwright/test": "1.34.0"
   },
   "author": "anderson.bruce.b@gmail.com",
   "license": "MIT",

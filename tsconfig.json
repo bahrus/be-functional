@@ -9,11 +9,9 @@
 		"strict": true,
 	},
 	"files":[
-		"be-functional.ts"
+		"be-functional2.ts"
 	],
 	"exclude":[
-		"build",
-		"bower_components",
 		"node_modules"
 	]
 
