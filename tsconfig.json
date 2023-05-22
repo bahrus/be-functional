@@ -9,7 +9,7 @@
 		"strict": true,
 	},
 	"files":[
-		"be-functional2.ts"
+		"be-functional.ts"
 	],
 	"exclude":[
 		"node_modules"

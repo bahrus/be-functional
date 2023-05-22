@@ -1,11 +1,21 @@
-import { define } from 'be-decorated/DE.js';
+import { BE, propDefaults, propInfo } from 'be-enhanced/BE.js';
+import { XE } from 'xtal-element/XE.js';
 import { register } from 'be-hive/register.js';
-export class BeFunctionalController extends EventTarget {
+export class BeFunctional extends BE {
+    static get beConfig() {
+        return {
+            parse: true,
+            primaryProp: 'fnParams',
+            primaryPropReq: true,
+        };
+    }
     #exportsLookup = new Map();
-    onFnParams({ fnParams, self }) {
+    onFnParams(self) {
+        const { fnParams, enhancedElement } = self;
+        import('be-exportable/be-exportable.js');
         for (const key in fnParams) {
             const param = fnParams[key];
-            self.addEventListener(key, async (e) => {
+            enhancedElement.addEventListener(key, async (e) => {
                 const { scriptRef, fn } = param;
                 if (this.#exportsLookup.has(scriptRef)) {
                     const exports = this.#exportsLookup.get(scriptRef);
@@ -13,8 +23,12 @@ export class BeFunctionalController extends EventTarget {
                     fun.bind(self)(e);
                     return;
                 }
-                const { importFromScriptRef } = await import('be-exportable/importFromScriptRef.js');
-                const exports = await importFromScriptRef(self, param.scriptRef);
+                const rn = enhancedElement.getRootNode();
+                const scriptEl = rn.getElementById(scriptRef);
+                if (scriptEl === null)
+                    throw '404';
+                const base = await scriptEl.beEnhanced.whenResolved('be-exportable');
+                const exports = base.exports;
                 this.#exportsLookup.set(scriptRef, exports);
                 const fun = exports[fn];
                 fun.bind(self)(e);
@@ -28,24 +42,23 @@ export class BeFunctionalController extends EventTarget {
 const tagName = 'be-functional';
 const ifWantsToBe = 'functional';
 const upgrade = '*';
-define({
+const xe = new XE({
     config: {
         tagName,
         propDefaults: {
-            ifWantsToBe,
-            upgrade,
-            virtualProps: ['fnParams'],
-            primaryProp: 'fnParams',
-            primaryPropReq: true,
+            ...propDefaults,
+        },
+        propInfo: {
+            ...propInfo,
+            fnParams: {
+                type: 'Object',
+                parse: false,
+            }
         },
         actions: {
-            onFnParams: {
-                ifAllOf: ['fnParams']
-            }
+            onFnParams: 'fnParams'
         }
     },
-    complexPropDefaults: {
-        controller: BeFunctionalController
-    }
+    superclass: BeFunctional
 });
 register(ifWantsToBe, upgrade, tagName);

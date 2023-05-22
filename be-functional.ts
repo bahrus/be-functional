@@ -1,14 +1,24 @@
-import {define, BeDecoratedProps} from 'be-decorated/DE.js';
-import {Proxy, PP, Actions, VirtualProps, FnParam, PPP} from './types';
+import {BE, propDefaults, propInfo} from 'be-enhanced/BE.js';
+import {BEConfig} from 'be-enhanced/types';
+import {XE} from 'xtal-element/XE.js';
+import {Actions, AllProps, AP, PAP, ProPAP, POA} from './types';
 import {register} from 'be-hive/register.js';
 
-export class BeFunctionalController extends EventTarget implements Actions{
+export class BeFunctional extends BE<AP, Actions> implements Actions{
+    static  override get beConfig(){
+        return {
+            parse: true,
+            primaryProp: 'fnParams',
+            primaryPropReq: true,
+        } as BEConfig
+    }
     #exportsLookup = new Map<string, any>();
-
-    onFnParams({fnParams, self}: PP){
+    onFnParams(self: this): Partial<AllProps> {
+        const {fnParams, enhancedElement} = self;
+        import('be-exportable/be-exportable.js');
         for(const key in fnParams){
             const param = fnParams[key];
-            self.addEventListener(key, async (e: Event) => {
+            enhancedElement.addEventListener(key, async (e: Event) => {
                 const {scriptRef, fn} = param;
                 if(this.#exportsLookup.has(scriptRef)){
                     const exports = this.#exportsLookup.get(scriptRef);
@@ -16,8 +26,11 @@ export class BeFunctionalController extends EventTarget implements Actions{
                     fun.bind(self)(e);
                     return;
                 }
-                const {importFromScriptRef} = await import('be-exportable/importFromScriptRef.js');
-                const exports = await importFromScriptRef<any>(self, param.scriptRef);
+                const rn = enhancedElement.getRootNode() as DocumentFragment;
+                const scriptEl = rn.getElementById(scriptRef);
+                if(scriptEl === null) throw '404';
+                const base = await (<any>scriptEl).beEnhanced.whenResolved('be-exportable');
+                const exports = base.exports;
                 this.#exportsLookup.set(scriptRef, exports);
                 const fun = exports[fn]; 
                 fun.bind(self)(e);
@@ -26,37 +39,34 @@ export class BeFunctionalController extends EventTarget implements Actions{
         }
         return{
             resolved: true,
-        } as PPP;
+        } as PAP;
     }
 }
 
+export interface BeFunctional extends AllProps{}
 
 const tagName = 'be-functional';
 const ifWantsToBe = 'functional';
 const upgrade = '*';
 
-define<
-    Proxy & BeDecoratedProps<Proxy, Actions>,
-    Actions
->({
-    config:{
+const xe = new XE<AP, Actions>({
+    config: {
         tagName,
-        propDefaults:{
-            ifWantsToBe,
-            upgrade,
-            virtualProps:['fnParams'],
-            primaryProp: 'fnParams',
-            primaryPropReq: true,
+        propDefaults: {
+            ...propDefaults,
+        },
+        propInfo: {
+            ...propInfo,
+            fnParams: {
+                type: 'Object',
+                parse: false,
+            }
         },
         actions:{
-            onFnParams:{
-                ifAllOf:['fnParams']
-            }
+            onFnParams: 'fnParams'
         }
     },
-    complexPropDefaults:{
-        controller: BeFunctionalController
-    }
+    superclass: BeFunctional
 });
 
 register(ifWantsToBe, upgrade, tagName);
